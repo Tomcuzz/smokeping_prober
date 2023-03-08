@@ -213,7 +213,7 @@ func main() {
 		time.Sleep(splay)
 	}
 
-	prometheus.MustRegister(NewSmokepingCollector(&pingers, &labels, *pingResponseSeconds))
+	prometheus.MustRegister(NewSmokepingCollector(&pingers, labels, *pingResponseSeconds))
 
 	http.Handle(*metricsPath, promhttp.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
