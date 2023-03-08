@@ -139,7 +139,7 @@ func main() {
 	prometheus.MustRegister(pingResponseSeconds)
 
 	pingers := make([]*probing.Pinger, len(*hosts))
-	labels := make([string]string, len(*hosts))
+	labels := make([string]string)
 	var pinger *probing.Pinger
 	var host string
 	for i, host := range *hosts {
