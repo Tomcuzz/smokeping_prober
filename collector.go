@@ -73,18 +73,18 @@ func NewSmokepingCollector(pingers *[]*probing.Pinger, descriptions [string]stri
 		ipAddr := pinger.IPAddr().String()
 		description := descriptions[pinger.IPAddr().String()]
 		pingResponseDuplicates.WithLabelValues(ipAddr, description, pinger.Addr(), pinger.Source)
-		pingResponseSeconds.WithLabelValues(ipAddr, description,  pinger.Addr(), pinger.Source)
-		pingResponseTTL.WithLabelValues(ipAddr, description,  pinger.Addr(), pinger.Source)
+		pingResponseSeconds.WithLabelValues(ipAddr, description, pinger.Addr(), pinger.Source)
+		pingResponseTTL.WithLabelValues(ipAddr, description, pinger.Addr(), pinger.Source)
 
 		// Setup handler functions.
 		pinger.OnRecv = func(pkt *probing.Packet) {
-			pingResponseSeconds.WithLabelValues(pkt.IPAddr.String(), description,  pkt.Addr, pinger.Source).Observe(pkt.Rtt.Seconds())
+			pingResponseSeconds.WithLabelValues(pkt.IPAddr.String(), description, pkt.Addr, pinger.Source).Observe(pkt.Rtt.Seconds())
 			pingResponseTTL.WithLabelValues(pkt.IPAddr.String(), description,  pkt.Addr, pinger.Source).Set(float64(pkt.TTL))
 			level.Debug(logger).Log("msg", "Echo reply", "ip_addr", pkt.IPAddr,
 				"bytes_received", pkt.Nbytes, "icmp_seq", pkt.Seq, "time", pkt.Rtt, "ttl", pkt.TTL)
 		}
 		pinger.OnDuplicateRecv = func(pkt *probing.Packet) {
-			pingResponseDuplicates.WithLabelValues(pkt.IPAddr.String(), description,  pkt.Addr, pinger.Source).Inc()
+			pingResponseDuplicates.WithLabelValues(pkt.IPAddr.String(), description, pkt.Addr, pinger.Source).Inc()
 			level.Debug(logger).Log("msg", "Echo reply (DUP!)", "ip_addr", pkt.IPAddr,
 				"bytes_received", pkt.Nbytes, "icmp_seq", pkt.Seq, "time", pkt.Rtt, "ttl", pkt.TTL)
 		}

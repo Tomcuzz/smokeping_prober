@@ -89,12 +89,12 @@ func (sc *SafeConfig) ReloadConfig(confFile string) (err error) {
 }
 
 type TargetGroup struct {
-	Hosts    []string      `yaml:"hosts"`
-	Interval time.Duration `yaml:"interval,omitempty"`
-	Network  string        `yaml:"network,omitempty"`
-	Protocol string        `yaml:"protocol,omitempty"`
-	Size     int           `yaml:"size,omitempty"`
-	Source   string        `yaml:"source,omitempty"`
+	Hosts    []string          `yaml:"hosts"`
+	Interval time.Duration     `yaml:"interval,omitempty"`
+	Network  string            `yaml:"network,omitempty"`
+	Protocol string            `yaml:"protocol,omitempty"`
+	Size     int               `yaml:"size,omitempty"`
+	Source   string            `yaml:"source,omitempty"`
 	// TODO: Needs work to fix MetricFamily consistency.
 	Labels   map[string]string `yaml:"labels,omitempty"`
 }
