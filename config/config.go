@@ -17,7 +17,6 @@ package config
 import (
 	"fmt"
 	"os"
-	"string"
 	"sync"
 	"time"
 
