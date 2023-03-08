@@ -96,7 +96,7 @@ type TargetGroup struct {
 	Size     int           `yaml:"size,omitempty"`
 	Source   string        `yaml:"source,omitempty"`
 	// TODO: Needs work to fix MetricFamily consistency.
-	// Labels   map[string]string `yaml:"labels,omitempty"`
+	Labels   map[string]string `yaml:"labels,omitempty"`
 }
 
 // UnmarshalYAML implements the yaml.Unmarshaler interface.

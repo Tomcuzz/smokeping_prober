@@ -139,6 +139,7 @@ func main() {
 	prometheus.MustRegister(pingResponseSeconds)
 
 	pingers := make([]*probing.Pinger, len(*hosts))
+	labels := make([string]string, len(*hosts))
 	var pinger *probing.Pinger
 	var host string
 	for i, host := range *hosts {
@@ -186,6 +187,13 @@ func main() {
 				level.Error(logger).Log("msg", "failed to resolve pinger", "error", err.Error())
 				os.Exit(1)
 			}
+
+			if val, ok := targetGroup.Labels[host]; ok {
+				labels[host] = val
+			} else {
+				labels[host] = ""
+			}
+
 			pingers = append(pingers, pinger)
 		}
 	}
@@ -200,12 +208,12 @@ func main() {
 	level.Info(logger).Log("msg", fmt.Sprintf("Waiting %s between starting pingers", splay))
 	g := new(errgroup.Group)
 	for _, pinger := range pingers {
-		level.Info(logger).Log("msg", "Starting prober", "address", pinger.Addr(), "interval", pinger.Interval, "size_bytes", pinger.Size, "source", pinger.Source)
+		level.Info(logger).Log("msg", "Starting prober", "address", pinger.Addr(), "hostname", labels[pinger.IPAddr().String()], "interval", pinger.Interval, "size_bytes", pinger.Size, "source", pinger.Source)
 		g.Go(pinger.Run)
 		time.Sleep(splay)
 	}
 
-	prometheus.MustRegister(NewSmokepingCollector(&pingers, *pingResponseSeconds))
+	prometheus.MustRegister(NewSmokepingCollector(&pingers, &labels, *pingResponseSeconds))
 
 	http.Handle(*metricsPath, promhttp.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
