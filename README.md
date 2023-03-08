@@ -48,12 +48,13 @@ Example config:
 ---
 targets:
 - hosts:
-  - host1
-  - host2
+  - localhost
+  
   interval: 1s # Duration, Default 1s.
   network: ip # One of ip, ip4, ip6. Default: ip (automatic IPv4/IPv6)
   protocol: icmp # One of icmp, udp. Default: icmp (Requires privileged operation)
   size: 56 # Packet data size in bytes. Default 56 (Range: 24 - 65535)
+  source: 127.0.1.1 # Souce IP address to use. Default: None (automatic selection)
 ```
 
 In each host group the `interval`, `network`, and `protocol` are optional.
