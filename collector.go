@@ -98,6 +98,7 @@ func NewSmokepingCollector(pingers *[]*probing.Pinger, descriptions map[string]s
 
 	return &SmokepingCollector{
 		pingers: pingers,
+		descriptions: descriptions,
 		requestsSent: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, "", "requests_total"),
 			"Number of ping requests sent",
