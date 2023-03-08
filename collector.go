@@ -115,7 +115,7 @@ func (s *SmokepingCollector) Describe(ch chan<- *prometheus.Desc) {
 func (s *SmokepingCollector) Collect(ch chan<- prometheus.Metric) {
 	for _, pinger := range *s.pingers {
 		stats := pinger.Statistics()
-		description := s.descriptions[pinger.IPAddr().String()]
+		description := s.descriptions[stats.IPAddr().String()]
 
 		ch <- prometheus.MustNewConstMetric(
 			s.requestsSent,
