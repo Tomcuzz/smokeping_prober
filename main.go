@@ -190,10 +190,10 @@ func main() {
 
 
 			pl := map[string]string{}
-			for _, l := range targetGroup.Labels {
-				v := strings.Split(l, "-")
+			for _, lbs := range targetGroup.Labels {
+				v := strings.Split(lbs, "-")
 				if len(v) > 1 {
-					pl[v[0]] = string.Join(v[1:],"-")
+					pl[v[0]] = strings.Join(v[1:],"-")
 				}
 			} 
 
