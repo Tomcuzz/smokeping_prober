@@ -1,4 +1,0 @@
----
-linters-settings:
-  errcheck:
-    exclude: scripts/errcheck_excludes.txt
