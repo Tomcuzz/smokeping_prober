@@ -17,6 +17,7 @@ package config
 import (
 	"fmt"
 	"os"
+	"string"
 	"sync"
 	"time"
 
@@ -47,6 +48,7 @@ var (
 		Network:  "ip",
 		Protocol: "icmp",
 		Size:     56,
+		Labels:   map[string]string{},
 	}
 )
 
@@ -89,13 +91,13 @@ func (sc *SafeConfig) ReloadConfig(confFile string) (err error) {
 }
 
 type TargetGroup struct {
-	Hosts    []string          `yaml:"hosts"`
-	Interval time.Duration     `yaml:"interval,omitempty"`
-	Network  string            `yaml:"network,omitempty"`
-	Protocol string            `yaml:"protocol,omitempty"`
-	Size     int               `yaml:"size,omitempty"`
-	Source   string            `yaml:"source,omitempty"`
-	Labels   map[string]string `yaml:"labels,omitempty"`
+	Hosts    []string      `yaml:"hosts"`
+	Interval time.Duration `yaml:"interval,omitempty"`
+	Network  string        `yaml:"network,omitempty"`
+	Protocol string        `yaml:"protocol,omitempty"`
+	Size     int           `yaml:"size,omitempty"`
+	Source   string        `yaml:"source,omitempty"`
+	Labels   string        `yaml:"labels,omitempty"`
 	// TODO: Needs work to fix MetricFamily consistency.
 }
 

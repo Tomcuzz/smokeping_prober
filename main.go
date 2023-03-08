@@ -188,7 +188,16 @@ func main() {
 				os.Exit(1)
 			}
 
-			if val, ok := targetGroup.Labels[host]; ok {
+
+			pl := map[string]string{}
+			for _, l := range targetGroup.Labels {
+				v := strings.Split(l, "-")
+				if len(v) > 1 {
+					pl[v[0]] = string.Join(v[1:],"-")
+				}
+			} 
+
+			if val, ok := pl[host]; ok {
 				labels[host] = val
 			} else {
 				labels[host] = ""
