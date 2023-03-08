@@ -172,6 +172,13 @@ func main() {
 			level.Error(logger).Log("msg", "Invalid packet size. (24-65535)", "bytes", packetSize)
 			os.Exit(1)
 		}
+		processedLabels := map[string]string{}
+		for _, l := range targetGroup.Labels {
+			v := strings.Split(l, "-")
+			if len(v) > 1 {
+				processedLabels[v[0]] = strings.Join(v[1:],"-")
+			}
+		}
 		for _, host = range targetGroup.Hosts {
 			pinger = probing.New(host)
 			pinger.Interval = targetGroup.Interval
@@ -189,15 +196,8 @@ func main() {
 			}
 
 
-			pl := map[string]string{}
-			for _, l := range host.Labels {
-				v := strings.Split(l, "-")
-				if len(v) > 1 {
-					pl[v[0]] = strings.Join(v[1:],"-")
-				}
-			} 
-
-			if val, ok := pl[host]; ok {
+			 
+			if val, ok := processedLabels[host]; ok {
 				labels[host] = val
 			} else {
 				labels[host] = ""

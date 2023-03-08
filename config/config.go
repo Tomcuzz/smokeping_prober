@@ -96,7 +96,7 @@ type TargetGroup struct {
 	Protocol string        `yaml:"protocol,omitempty"`
 	Size     int           `yaml:"size,omitempty"`
 	Source   string        `yaml:"source,omitempty"`
-	Labels   string        `yaml:"labels,omitempty"`
+	Labels   []string      `yaml:"labels,omitempty"`
 	// TODO: Needs work to fix MetricFamily consistency.
 }
 
