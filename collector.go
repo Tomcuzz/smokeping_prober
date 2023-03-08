@@ -61,8 +61,8 @@ func newPingResponseHistogram(buckets []float64) *prometheus.HistogramVec {
 
 // SmokepingCollector collects metrics from the pinger.
 type SmokepingCollector struct {
-	pingers       *[]*probing.Pinger
-	descriptions  [string]string
+	pingers      *[]*probing.Pinger
+	descriptions [string]string
 
 	requestsSent *prometheus.Desc
 }
