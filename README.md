@@ -49,7 +49,8 @@ Example config:
 targets:
 - hosts:
   - localhost
-  
+  labels:
+  - localhost-Local-Machine
   interval: 1s # Duration, Default 1s.
   network: ip # One of ip, ip4, ip6. Default: ip (automatic IPv4/IPv6)
   protocol: icmp # One of icmp, udp. Default: icmp (Requires privileged operation)
