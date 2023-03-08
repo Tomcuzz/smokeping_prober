@@ -47,7 +47,7 @@ var (
 		Network:  "ip",
 		Protocol: "icmp",
 		Size:     56,
-		Labels:   "",
+		Labels:   []string{},
 	}
 )
 
