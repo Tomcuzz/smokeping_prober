@@ -61,7 +61,7 @@ func newPingResponseHistogram(buckets []float64) *prometheus.HistogramVec {
 
 // SmokepingCollector collects metrics from the pinger.
 type SmokepingCollector struct {
-	pingers *[]*probing.Pinger
+	pingers       *[]*probing.Pinger
 	descripbtions [string]string
 
 	requestsSent *prometheus.Desc
@@ -79,7 +79,7 @@ func NewSmokepingCollector(pingers *[]*probing.Pinger, descriptions [string]stri
 		// Setup handler functions.
 		pinger.OnRecv = func(pkt *probing.Packet) {
 			pingResponseSeconds.WithLabelValues(pkt.IPAddr.String(), description, pkt.Addr, pinger.Source).Observe(pkt.Rtt.Seconds())
-			pingResponseTTL.WithLabelValues(pkt.IPAddr.String(), description,  pkt.Addr, pinger.Source).Set(float64(pkt.TTL))
+			pingResponseTTL.WithLabelValues(pkt.IPAddr.String(), description, pkt.Addr, pinger.Source).Set(float64(pkt.TTL))
 			level.Debug(logger).Log("msg", "Echo reply", "ip_addr", pkt.IPAddr,
 				"bytes_received", pkt.Nbytes, "icmp_seq", pkt.Seq, "time", pkt.Rtt, "ttl", pkt.TTL)
 		}
