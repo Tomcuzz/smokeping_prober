@@ -62,12 +62,12 @@ func newPingResponseHistogram(buckets []float64) *prometheus.HistogramVec {
 // SmokepingCollector collects metrics from the pinger.
 type SmokepingCollector struct {
 	pingers      *[]*probing.Pinger
-	descriptions *[string]string
+	descriptions map[string]string
 
 	requestsSent *prometheus.Desc
 }
 
-func NewSmokepingCollector(pingers *[]*probing.Pinger, descriptions *[string]string, pingResponseSeconds prometheus.HistogramVec) *SmokepingCollector {
+func NewSmokepingCollector(pingers *[]*probing.Pinger, descriptions map[string]string, pingResponseSeconds prometheus.HistogramVec) *SmokepingCollector {
 	for _, pinger := range *pingers {
 		// Init all metrics to 0s.
 		ipAddr := pinger.IPAddr().String()
