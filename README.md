@@ -1,12 +1,5 @@
 # smokeping_prober
 
-[![CircleCI](https://circleci.com/gh/SuperQ/smokeping_prober/tree/master.svg?style=svg)](https://circleci.com/gh/SuperQ/smokeping_prober/tree/master)
-[![Docker Repository on Quay](https://quay.io/repository/superq/smokeping-prober/status "Docker Repository on Quay")](https://quay.io/repository/superq/smokeping-prober)
-
-Prometheus style "smokeping" prober.
-
-![Example Graph](example-graph.png)
-
 ## Overview
 
 This prober sends a series of ICMP (or UDP) pings to a target and records the responses in Prometheus histogram metrics.
